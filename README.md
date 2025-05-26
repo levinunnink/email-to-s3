@@ -53,7 +53,7 @@ PORT=3000
 npm run dev
 ```
 
-Configure your Postmark inbound webhook to POST to http://<your-host>/webhooks/email.
+Configure your Postmark inbound webhook to POST to `http://<your-host>/webhooks/email`.
 
 ## Build & Deployment
 
