@@ -1,0 +1,39 @@
+# DigitalOcean App Platform spec for email-to-s3
+name: email-to-s3
+region: nyc1
+services:
+  - name: api
+    git:
+      repo_clone_url: https://github.com/levinunnink/email-to-s3.git
+      branch: main
+    build_command: npm install && npm run build
+    run_command: npm start
+    environment_slug: node-js
+    instance_size_slug: basic-xxs
+    instance_count: 1
+    routes:
+      - path: /
+        preserve_path: true
+    envs:
+      - key: STORAGE_ENDPOINT
+        scope: RUN_AND_BUILD_TIME
+      - key: STORAGE_REGION
+        scope: RUN_AND_BUILD_TIME
+      - key: STORAGE_ACCESS_KEY_ID
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+      - key: STORAGE_SECRET_ACCESS_KEY
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+      - key: STORAGE_BUCKET
+        scope: RUN_AND_BUILD_TIME
+      - key: POSTMARK_SERVER_TOKEN
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+    health_check:
+      path: /health
+      protocol: HTTP
+      interval: 10s
+      timeout: 5s
+      unhealthy_threshold: 3
+      healthy_threshold: 5
