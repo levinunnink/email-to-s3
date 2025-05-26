@@ -1,13 +1,16 @@
 service: email-to-s3
-
 frameworkVersion: '3'
 
 provider:
   name: aws
   runtime: nodejs18.x
-  region: ${env:AWS_REGION, 'us-east-1'}
+  region: ${env:STORAGE_REGION, 'us-east-1'}
   environment:
-    S3_BUCKET: ${env:S3_BUCKET}
+    STORAGE_ENDPOINT: ${env:STORAGE_ENDPOINT}
+    STORAGE_REGION: ${env:STORAGE_REGION}
+    STORAGE_ACCESS_KEY_ID: ${env:STORAGE_ACCESS_KEY_ID}
+    STORAGE_SECRET_ACCESS_KEY: ${env:STORAGE_SECRET_ACCESS_KEY}
+    STORAGE_BUCKET: ${env:STORAGE_BUCKET}
     POSTMARK_SERVER_TOKEN: ${env:POSTMARK_SERVER_TOKEN}
   iam:
     role:
@@ -15,7 +18,7 @@ provider:
         - Effect: Allow
           Action:
             - s3:PutObject
-          Resource: arn:aws:s3:::${env:S3_BUCKET}/*
+          Resource: arn:aws:s3:::${env:STORAGE_BUCKET}/*
 
 functions:
   emailWebhook:
@@ -30,8 +33,16 @@ package:
   individually: true
   patterns:
     - '!node_modules/**'
-    - '!src/**' 
+    - '!src/**'
     - 'dist/**'
 
 plugins:
   - serverless-plugin-typescript
+
+# Uncomment if you want to bundle dependencies
+#  - serverless-webpack
+
+custom:
+  # If using serverless-webpack, point to webpack.config.js
+  webpack:
+    webpackConfig: ./webpack.config.js
