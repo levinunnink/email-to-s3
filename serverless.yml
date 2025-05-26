@@ -1,0 +1,37 @@
+service: email-to-s3
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ${env:AWS_REGION, 'us-east-1'}
+  environment:
+    S3_BUCKET: ${env:S3_BUCKET}
+    POSTMARK_SERVER_TOKEN: ${env:POSTMARK_SERVER_TOKEN}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+          Resource: arn:aws:s3:::${env:S3_BUCKET}/*
+
+functions:
+  emailWebhook:
+    handler: dist/index.handler
+    events:
+      - http:
+          path: webhooks/email
+          method: post
+          cors: true
+
+package:
+  individually: true
+  patterns:
+    - '!node_modules/**'
+    - '!src/**'
+    - 'dist/**'
+
+plugins:
+  - serverless-plugin-typescript
