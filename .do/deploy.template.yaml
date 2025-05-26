@@ -30,10 +30,3 @@ spec:
         - key: POSTMARK_SERVER_TOKEN
           scope: RUN_AND_BUILD_TIME
           type: SECRET
-      health_check:
-        path: /health
-        protocol: HTTP
-        interval: 10s
-        timeout: 5s
-        unhealthy_threshold: 3
-        healthy_threshold: 5
