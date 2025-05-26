@@ -4,7 +4,7 @@ Lightweight Express.js service that receives inbound emails via Postmark and upl
 
 [![Deploy to AWS](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=email-to-s3&templateURL=https://raw.githubusercontent.com/levinunnink/email-to-s3/main/serverless.yml)
 [![Deploy to Cloudflare Pages](https://img.shields.io/badge/Deploy%20to-Cloudflare%20Pages-lightgrey)](https://dash.cloudflare.com/?to=/pages/project-create&repo=https://github.com/levinunnink/email-to-s3)
-[![Deploy to DigitalOcean](https://static-assets.digitalocean.com/logo/do-btn-purple.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/levinunnink/email-to-s3)
+[![Deploy to DigitalOcean](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/levinunnink/email-to-s3)
 
 ## Features
 
