@@ -2,6 +2,8 @@
 
 Express.js application to upload Postmark inbound email attachments to AWS S3. Each attachment is stored under a key with the pattern `<email-address>/<attachment-name>`.
 
+[![Deploy to AWS](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=email-to-s3&templateURL=https://raw.githubusercontent.com/levinunnink/email-to-s3/main/serverless.yml)
+
 ## Features
 
 - Receives inbound email webhooks from Postmark
@@ -55,18 +57,8 @@ npm start
 
 ## Deploying with Serverless Framework
 
-Install Serverless globally if you haven't yet:
-
-```npm install -g serverless```
-
-Configure AWS credentials (e.g. via aws configure).
-
-Deploy your service:
-
-```serverless deploy```
-
-After deployment, note the generated endpoint under endpoints in the CLI output.
-
-In Postmark, configure your inbound webhook to use:
-
-```https://<your-api-id>.execute-api.<region>.amazonaws.com/dev/webhooks/email```
+1. Install Serverless globally if you haven't yet: ```npm install -g serverless```
+2. Configure AWS credentials (e.g. via aws configure).
+3. Deploy your service: ```serverless deploy```
+4. After deployment, note the generated endpoint under endpoints in the CLI output.
+5. In Postmark, configure your inbound webhook to use: ```https://<your-api-id>.execute-api.<region>.amazonaws.com/dev/webhooks/email```
