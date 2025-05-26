@@ -1,4 +1,4 @@
-# email-to-s3
+# Email to S3
 
 Lightweight Express.js service that receives inbound emails via Postmark and uploads attachments to any S3-compatible block storage (AWS S3, Cloudflare R2, DigitalOcean Spaces, etc.) under the pattern `<email-address>/<attachment-name>`. No database dependencies.
 
