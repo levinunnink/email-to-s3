@@ -2,10 +2,6 @@
 
 Lightweight Express.js service that receives inbound emails via Postmark and uploads attachments to any S3-compatible block storage (AWS S3, Cloudflare R2, DigitalOcean Spaces, etc.) under the pattern `<email-address>/<attachment-name>`. No database dependencies.
 
-- [![Deploy to AWS](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=email-to-s3&templateURL=https://raw.githubusercontent.com/levinunnink/email-to-s3/main/serverless.yml)
-- [![Deploy to Cloudflare Pages](https://img.shields.io/badge/Deploy%20to-Cloudflare%20Pages-lightgrey)](https://dash.cloudflare.com/?to=/pages/project-create&repo=https://github.com/levinunnink/email-to-s3)
-- [![Deploy to DigitalOcean](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/levinunnink/email-to-s3/tree/master)
-
 ## Features
 
 - Receives inbound email webhooks from Postmark
@@ -43,6 +39,7 @@ STORAGE_SECRET_ACCESS_KEY=your-secret-access-key
 STORAGE_BUCKET=your-bucket-name
 POSTMARK_SERVER_TOKEN=your-postmark-token
 PORT=3000  
+SEND_EMAIL_RESPONSE=1 # Indicates if the service should send a response email with the attachement links
 ```
 
 | Tip: For AWS S3, you can omit STORAGE_ENDPOINT (SDK will default to AWS)
@@ -62,11 +59,6 @@ npm run build
 npm start
 ```
 
-### License
-
-```MIT```
-
-
 ## Deploying with Serverless Framework
 
 1. Install Serverless globally if you haven't yet: ```npm install -g serverless```
@@ -74,3 +66,7 @@ npm start
 3. Deploy your service: ```serverless deploy```
 4. After deployment, note the generated endpoint under endpoints in the CLI output.
 5. In Postmark, configure your inbound webhook to use: ```https://<your-api-id>.execute-api.<region>.amazonaws.com/dev/webhooks/email```
+
+### License
+
+```MIT```

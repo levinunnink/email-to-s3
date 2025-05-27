@@ -1,5 +1,6 @@
 service: email-to-s3
 frameworkVersion: '3'
+useDotenv: true
 
 provider:
   name: aws
@@ -12,37 +13,25 @@ provider:
     STORAGE_SECRET_ACCESS_KEY: ${env:STORAGE_SECRET_ACCESS_KEY}
     STORAGE_BUCKET: ${env:STORAGE_BUCKET}
     POSTMARK_SERVER_TOKEN: ${env:POSTMARK_SERVER_TOKEN}
+    SEND_EMAIL_RESPONSE: ${env:SEND_EMAIL_RESPONSE}
   iam:
     role:
       statements:
         - Effect: Allow
           Action:
             - s3:PutObject
+            - s3:GetObject
           Resource: arn:aws:s3:::${env:STORAGE_BUCKET}/*
 
 functions:
   emailWebhook:
-    handler: dist/index.handler
+    handler: src/handler.handler
+    timeout: 30
     events:
       - http:
           path: webhooks/email
           method: post
           cors: true
 
-package:
-  individually: true
-  patterns:
-    - '!node_modules/**'
-    - '!src/**'
-    - 'dist/**'
-
 plugins:
   - serverless-plugin-typescript
-
-# Uncomment if you want to bundle dependencies
-#  - serverless-webpack
-
-custom:
-  # If using serverless-webpack, point to webpack.config.js
-  webpack:
-    webpackConfig: ./webpack.config.js
