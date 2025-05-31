@@ -14,6 +14,7 @@ provider:
     STORAGE_BUCKET: ${env:STORAGE_BUCKET}
     POSTMARK_SERVER_TOKEN: ${env:POSTMARK_SERVER_TOKEN}
     SEND_EMAIL_RESPONSE: ${env:SEND_EMAIL_RESPONSE}
+    JWT_SECRET: ${env:JWT_SECRET}
   iam:
     role:
       statements:

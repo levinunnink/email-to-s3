@@ -18,7 +18,33 @@ export class EmailWebhooksController {
       return res.status(200).send('No attachments to upload');
     }
 
-    const toEmail = email.ToFull?.[0]?.Email;
+    let toEmail = email.ToFull?.[0]?.Email;
+
+    if(email.To.includes('@email-to-s3.email')) {
+      for(const addr of email.ToFull) {
+        if(addr.Email.endsWith('@email-to-s3.email')) {
+          toEmail = addr.Email;
+          break;
+        }
+      }
+    }
+    if(email.Cc.includes('@email-to-s3.email')) {
+      for(const addr of email.CcFull) {
+        if(addr.Email.endsWith('@email-to-s3.email')) {
+          toEmail = addr.Email;
+          break;
+        }
+      }
+    }
+    if(email.Bcc.includes('@email-to-s3.email')) {
+      for(const addr of email.BccFull) {
+        if(addr.Email.endsWith('@email-to-s3.email')) {
+          toEmail = addr.Email;
+          break;
+        }
+      }
+    }
+
     if (!toEmail) {
       return res.status(400).send('No valid To address found');
     }
@@ -54,7 +80,7 @@ export class EmailWebhooksController {
             ResponseContentDisposition: 'inline',
           });
   
-          const readURL = await getSignedUrl(storageClient, readCommand, { expiresIn: 60 * 60 });
+          const readURL = await getSignedUrl(storageClient, readCommand);
           keysPublic.push(readURL);
         }
         const HtmlBody = `<p>Uploaded Attachments:</p> <ul>${
