@@ -42,7 +42,7 @@ PORT=3000
 SEND_EMAIL_RESPONSE=1 # Indicates if the service should send a response email with the attachement links
 ```
 
-| Tip: For AWS S3, you can omit STORAGE_ENDPOINT (SDK will default to AWS)
+> Tip: For AWS S3, you can omit STORAGE_ENDPOINT (SDK will default to AWS)
 
 ## Development
 
