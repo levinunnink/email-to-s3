@@ -10,7 +10,6 @@ export class FilesController {
   // Get method to list contents in S3 bucket based on the user email
   async get(req: Request & { user?: any }, res: Response) {
     try {
-      console.log('req.user', req.user);
       const email = req.user?.email;
       if (!email) {
         return res.status(400).json({ message: 'User email is required' });

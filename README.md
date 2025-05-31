@@ -40,6 +40,7 @@ STORAGE_BUCKET=your-bucket-name
 POSTMARK_SERVER_TOKEN=your-postmark-token
 PORT=3000  
 SEND_EMAIL_RESPONSE=1 # Indicates if the service should send a response email with the attachement links
+JWT_SECRET=... # A token secret if you want to list the users files
 ```
 
 > Tip: For AWS S3, you can omit STORAGE_ENDPOINT (SDK will default to AWS)
